@@ -41,7 +41,7 @@ def main():
         )
 
         chatbot_response = response.choices[0].message.content
-        conversation.append({"role":"system", "content":chatbot_response})
+        conversation.append({"role":"assistant", "content":chatbot_response})
 
         print("User:", uq)
         print("Chatbot:", chatbot_response)
