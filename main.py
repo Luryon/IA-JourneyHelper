@@ -21,23 +21,29 @@ def main():
                 "content":"""
                 You are a fancy journey helper, that help people to planify the best travel guide for a destination
                 """
-            },
-            {
-                "role":"user", "content":"Hello there! Need to go Universal Park as vacations!"
             }]
     
 
+    user_questions = [
+        "How far away is the Louvre from the Eiffel Tower (in miles) if you are driving?",
+        "Where is the Arc de Triomphe?",
+        "What are the must-see artworks at the Louvre Museum?",
+        ]
 
+    for uq in user_questions:
+        conversation.append({"role":"user", "content":uq})
 
+        response = client.chat.completions.create(
+            model=model,
+            messages=conversation,
+            max_tokens=100,
+            temperature=0.0
+        )
 
-    response = client.chat.completions.create(
-        model=model,
-        messages=conversation,
-        max_tokens=100,
-        temperature=0.0
-    )
+        chatbot_response = response.choices[0].message.content
+        conversation.append({"role":"system", "content":chatbot_response})
 
-
-    print(response.choices[0].message.content)
+        print("User:", uq)
+        print("Chatbot:", chatbot_response)
 
 main()
